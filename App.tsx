@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { BADGES, TROUBLESHOOTING_TIPS } from './constants';
 import { BadgeCard } from './components/BadgeCard';
 import { AIAssistant } from './components/AIAssistant';
+import { ProfileChecker } from './components/ProfileChecker';
 import { BadgeStatus } from './types';
-import { Github, Trophy, Info, AlertTriangle, Moon, Sun, Search } from 'lucide-react';
+import { Github, Trophy, Info, AlertTriangle, Moon, Sun, Search, UserCheck } from 'lucide-react';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'achievements' | 'assistant' | 'troubleshooting'>('achievements');
+  const [activeTab, setActiveTab] = useState<'achievements' | 'checker' | 'assistant' | 'troubleshooting'>('achievements');
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -46,22 +47,28 @@ function App() {
             </h1>
           </div>
 
-          <div className="flex items-center gap-2 bg-gray-100 dark:bg-github-darker p-1 rounded-lg">
+          <div className="flex items-center gap-1 md:gap-2 bg-gray-100 dark:bg-github-darker p-1 rounded-lg overflow-x-auto">
              <button 
                onClick={() => setActiveTab('achievements')}
-               className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${activeTab === 'achievements' ? 'bg-white dark:bg-github-border shadow-sm text-github-dark dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}`}
+               className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all whitespace-nowrap ${activeTab === 'achievements' ? 'bg-white dark:bg-github-border shadow-sm text-github-dark dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}`}
              >
                Achievements
              </button>
              <button 
+               onClick={() => setActiveTab('checker')}
+               className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2 whitespace-nowrap ${activeTab === 'checker' ? 'bg-white dark:bg-github-border shadow-sm text-github-dark dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}`}
+             >
+               <UserCheck className="w-4 h-4 hidden md:block" /> Check Progress
+             </button>
+             <button 
                onClick={() => setActiveTab('troubleshooting')}
-               className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${activeTab === 'troubleshooting' ? 'bg-white dark:bg-github-border shadow-sm text-github-dark dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}`}
+               className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all whitespace-nowrap ${activeTab === 'troubleshooting' ? 'bg-white dark:bg-github-border shadow-sm text-github-dark dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'}`}
              >
                Troubleshooting
              </button>
              <button 
                onClick={() => setActiveTab('assistant')}
-               className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2 ${activeTab === 'assistant' ? 'bg-white dark:bg-github-border shadow-sm text-purple-600 dark:text-purple-300' : 'text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-300'}`}
+               className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all flex items-center gap-2 whitespace-nowrap ${activeTab === 'assistant' ? 'bg-white dark:bg-github-border shadow-sm text-purple-600 dark:text-purple-300' : 'text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-300'}`}
              >
                AI Assistant
              </button>
@@ -134,6 +141,18 @@ function App() {
                 </div>
               </section>
             )}
+          </div>
+        )}
+
+        {activeTab === 'checker' && (
+          <div className="animate-in fade-in zoom-in-95 duration-300">
+             <div className="mb-8 text-center">
+                <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">Progress Checker</h2>
+                <p className="text-gray-600 dark:text-gray-400">
+                  See how close you are to the next tier for trackable achievements.
+                </p>
+             </div>
+             <ProfileChecker />
           </div>
         )}
 

@@ -8,10 +8,11 @@ export const BADGES: Badge[] = [
     description: 'Opened pull requests that have been merged.',
     howToEarn: 'Open a Pull Request (PR) that gets merged into the default branch.',
     status: BadgeStatus.ACTIVE,
+    metricKey: 'merged_prs',
     tiers: [
-      { name: 'Bronze', criteria: '2 merged PRs', color: 'text-amber-700' },
-      { name: 'Silver', criteria: '16 merged PRs', color: 'text-slate-400' },
-      { name: 'Gold', criteria: '1024 merged PRs', color: 'text-yellow-400' },
+      { name: 'Bronze', criteria: '2 merged PRs', color: 'text-amber-700', threshold: 2 },
+      { name: 'Silver', criteria: '16 merged PRs', color: 'text-slate-400', threshold: 16 },
+      { name: 'Gold', criteria: '1024 merged PRs', color: 'text-yellow-400', threshold: 1024 },
     ],
     guideSteps: [
       'Find a repository you want to contribute to.',
@@ -29,10 +30,11 @@ export const BADGES: Badge[] = [
     description: 'Accepted answers in GitHub Discussions.',
     howToEarn: 'Provide an answer in a GitHub Discussion that is marked as the accepted answer by the OP or maintainer.',
     status: BadgeStatus.ACTIVE,
+    metricKey: 'discussion_answers',
     tiers: [
-      { name: 'Bronze', criteria: '2 accepted answers', color: 'text-amber-700' },
-      { name: 'Silver', criteria: '8 accepted answers', color: 'text-slate-400' },
-      { name: 'Gold', criteria: '16 accepted answers', color: 'text-yellow-400' },
+      { name: 'Bronze', criteria: '2 accepted answers', color: 'text-amber-700', threshold: 2 },
+      { name: 'Silver', criteria: '8 accepted answers', color: 'text-slate-400', threshold: 8 },
+      { name: 'Gold', criteria: '16 accepted answers', color: 'text-yellow-400', threshold: 16 },
     ],
     guideSteps: [
       'Go to the "Discussions" tab of a repository.',
@@ -76,10 +78,11 @@ export const BADGES: Badge[] = [
     description: 'Created a repository that reached a star milestone.',
     howToEarn: 'Have a repository you own receive enough stars.',
     status: BadgeStatus.ACTIVE,
+    metricKey: 'stars',
     tiers: [
-      { name: 'Bronze', criteria: '16 stars', color: 'text-amber-700' },
-      { name: 'Silver', criteria: '128 stars', color: 'text-slate-400' },
-      { name: 'Gold', criteria: '4096 stars', color: 'text-yellow-400' },
+      { name: 'Bronze', criteria: '16 stars', color: 'text-amber-700', threshold: 16 },
+      { name: 'Silver', criteria: '128 stars', color: 'text-slate-400', threshold: 128 },
+      { name: 'Gold', criteria: '4096 stars', color: 'text-yellow-400', threshold: 4096 },
     ],
     guideSteps: [
       'Create a useful open source project.',
@@ -94,10 +97,11 @@ export const BADGES: Badge[] = [
     description: 'Co-authored commits merged into default branch.',
     howToEarn: 'Have a commit merged where you are listed as a co-author.',
     status: BadgeStatus.ACTIVE,
+    metricKey: 'coauthored_commits',
     tiers: [
-      { name: 'Bronze', criteria: '10 co-authored commits', color: 'text-amber-700' },
-      { name: 'Silver', criteria: '24 co-authored commits', color: 'text-slate-400' },
-      { name: 'Gold', criteria: '48 co-authored commits', color: 'text-yellow-400' },
+      { name: 'Bronze', criteria: '10 co-authored commits', color: 'text-amber-700', threshold: 10 },
+      { name: 'Silver', criteria: '24 co-authored commits', color: 'text-slate-400', threshold: 24 },
+      { name: 'Gold', criteria: '48 co-authored commits', color: 'text-yellow-400', threshold: 48 },
     ],
     guideSteps: [
       'Collaborate with someone on a feature.',
