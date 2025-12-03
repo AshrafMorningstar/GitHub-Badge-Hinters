@@ -8,6 +8,9 @@ export const BADGES: Badge[] = [
     description: 'Opened pull requests that have been merged.',
     howToEarn: 'Open a Pull Request (PR) that gets merged into the default branch.',
     status: BadgeStatus.ACTIVE,
+    difficulty: 'Easy',
+    category: 'Code & PRs',
+    rarity: 'Common',
     metricKey: 'merged_prs',
     tiers: [
       { name: 'Bronze', criteria: '2 merged PRs', color: 'text-amber-700', threshold: 2 },
@@ -30,6 +33,9 @@ export const BADGES: Badge[] = [
     description: 'Accepted answers in GitHub Discussions.',
     howToEarn: 'Provide an answer in a GitHub Discussion that is marked as the accepted answer by the OP or maintainer.',
     status: BadgeStatus.ACTIVE,
+    difficulty: 'Medium',
+    category: 'Community',
+    rarity: 'Uncommon',
     metricKey: 'discussion_answers',
     tiers: [
       { name: 'Bronze', criteria: '2 accepted answers', color: 'text-amber-700', threshold: 2 },
@@ -50,6 +56,9 @@ export const BADGES: Badge[] = [
     description: 'Merged a PR without code review.',
     howToEarn: 'Merge a Pull Request into the default branch without any code review approvals.',
     status: BadgeStatus.ACTIVE,
+    difficulty: 'Easy',
+    category: 'Code & PRs',
+    rarity: 'Common',
     guideSteps: [
       'Create a new repository (or use one where you are admin).',
       'Create a new branch and make a change.',
@@ -65,6 +74,9 @@ export const BADGES: Badge[] = [
     description: 'Closed an issue or PR within 5 minutes of opening.',
     howToEarn: 'Close an issue or merge a PR within 5 minutes of its creation.',
     status: BadgeStatus.ACTIVE,
+    difficulty: 'Medium',
+    category: 'Code & PRs',
+    rarity: 'Rare',
     guideSteps: [
       'Create a new issue or PR.',
       'Immediately close it (for issue) or merge it (for PR).',
@@ -78,6 +90,9 @@ export const BADGES: Badge[] = [
     description: 'Created a repository that reached a star milestone.',
     howToEarn: 'Have a repository you own receive enough stars.',
     status: BadgeStatus.ACTIVE,
+    difficulty: 'Hard',
+    category: 'Repository',
+    rarity: 'Legendary',
     metricKey: 'stars',
     tiers: [
       { name: 'Bronze', criteria: '16 stars', color: 'text-amber-700', threshold: 16 },
@@ -97,6 +112,9 @@ export const BADGES: Badge[] = [
     description: 'Co-authored commits merged into default branch.',
     howToEarn: 'Have a commit merged where you are listed as a co-author.',
     status: BadgeStatus.ACTIVE,
+    difficulty: 'Medium',
+    category: 'Code & PRs',
+    rarity: 'Uncommon',
     metricKey: 'coauthored_commits',
     tiers: [
       { name: 'Bronze', criteria: '10 co-authored commits', color: 'text-amber-700', threshold: 10 },
@@ -116,6 +134,9 @@ export const BADGES: Badge[] = [
     description: 'Sponsoring open source projects via GitHub Sponsors.',
     howToEarn: 'Sponsor a developer or organization through GitHub Sponsors.',
     status: BadgeStatus.ACTIVE,
+    difficulty: 'Easy',
+    category: 'Sponsorship',
+    rarity: 'Common',
     guideSteps: [
       'Find a user or repo with the "Sponsor" button.',
       'Choose a tier and complete payment.',
@@ -128,7 +149,10 @@ export const BADGES: Badge[] = [
     emoji: '❄️',
     description: 'Code contributed to a repository in the 2020 Arctic Vault Snapshot.',
     howToEarn: 'Contributed code to qualifying repositories before 02/02/2020.',
-    status: BadgeStatus.RETIRED
+    status: BadgeStatus.RETIRED,
+    difficulty: 'Exclusive',
+    category: 'Events',
+    rarity: 'Mythic'
   },
   {
     id: 'mars-2020',
@@ -136,7 +160,10 @@ export const BADGES: Badge[] = [
     emoji: '🚁',
     description: 'Contributed to a repository used in the Mars 2020 Helicopter mission.',
     howToEarn: 'Contributed to specific open source libraries used by NASA JPL.',
-    status: BadgeStatus.RETIRED
+    status: BadgeStatus.RETIRED,
+    difficulty: 'Exclusive',
+    category: 'Events',
+    rarity: 'Mythic'
   },
   {
     id: 'pro',
@@ -144,7 +171,10 @@ export const BADGES: Badge[] = [
     emoji: '⭐',
     description: 'Subscriber to GitHub Pro.',
     howToEarn: 'Pay for the GitHub Pro plan.',
-    status: BadgeStatus.HIGHLIGHT
+    status: BadgeStatus.HIGHLIGHT,
+    difficulty: 'Easy',
+    category: 'Membership',
+    rarity: 'Common'
   },
   {
     id: 'developer-program',
@@ -152,7 +182,10 @@ export const BADGES: Badge[] = [
     emoji: '🛠️',
     description: 'Member of the GitHub Developer Program.',
     howToEarn: 'Register for the developer program (requires having a paid app or similar).',
-    status: BadgeStatus.HIGHLIGHT
+    status: BadgeStatus.HIGHLIGHT,
+    difficulty: 'Medium',
+    category: 'Membership',
+    rarity: 'Uncommon'
   }
 ];
 

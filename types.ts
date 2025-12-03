@@ -5,6 +5,9 @@ export enum BadgeStatus {
   HIGHLIGHT = 'Profile Highlight'
 }
 
+export type Difficulty = 'Easy' | 'Medium' | 'Hard' | 'Extreme' | 'Exclusive';
+export type Rarity = 'Common' | 'Uncommon' | 'Rare' | 'Legendary' | 'Mythic';
+
 export interface Tier {
   name: string;
   criteria: string;
@@ -21,6 +24,9 @@ export interface Badge {
   description: string;
   howToEarn: string;
   status: BadgeStatus;
+  difficulty: Difficulty;
+  category: string;
+  rarity: Rarity;
   tiers?: Tier[];
   guideSteps?: string[];
   imageUrl?: string;

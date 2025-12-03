@@ -10,17 +10,37 @@
         darkMode: 'class',
         theme: {
           extend: {
+            fontFamily: {
+              sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+            },
             colors: {
               github: {
                 dark: '#0d1117',
                 darker: '#010409',
+                card: '#161b22',
                 light: '#ffffff',
                 border: '#30363d',
                 accent: '#2f81f7',
                 success: '#238636',
                 attention: '#d29922',
                 danger: '#da3633',
-                muted: '#8b949e'
+                muted: '#8b949e',
+              }
+            },
+            animation: {
+              'blob': 'blob 10s infinite',
+              'fade-in': 'fadeIn 0.5s ease-out forwards',
+            },
+            keyframes: {
+              blob: {
+                '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                '100%': { transform: 'translate(0px, 0px) scale(1)' },
+              },
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
               }
             }
           }
@@ -28,20 +48,49 @@
       }
     </script>
     <style>
-      /* Custom scrollbar for a more native feel */
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+      /* Smooth Scroll behavior */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Custom scrollbar */
       ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
+        width: 6px;
+        height: 6px;
       }
       ::-webkit-scrollbar-track {
-        background: #0d1117; 
+        background: transparent; 
       }
       ::-webkit-scrollbar-thumb {
-        background: #30363d; 
-        border-radius: 4px;
+        background: #8b949e; 
+        border-radius: 10px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #8b949e; 
+        background: #586069; 
+      }
+      
+      .bg-grid-pattern {
+        background-size: 40px 40px;
+        background-image: linear-gradient(to right, rgba(128, 128, 128, 0.05) 1px, transparent 1px),
+                          linear-gradient(to bottom, rgba(128, 128, 128, 0.05) 1px, transparent 1px);
+        mask-image: linear-gradient(to bottom, transparent, 10%, black, 90%, transparent);
+      }
+      
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      .dark .glass-panel {
+        background: rgba(22, 27, 34, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .text-glow {
+        text-shadow: 0 0 20px rgba(47, 129, 247, 0.5);
       }
     </style>
   <script type="importmap">
@@ -56,7 +105,18 @@
 }
 </script>
 </head>
-  <body class="bg-gray-50 text-gray-900 dark:bg-github-darker dark:text-gray-100 transition-colors duration-200">
-    <div id="root"></div>
+  <body class="bg-[#f8f9fa] text-gray-900 dark:bg-[#05090f] dark:text-gray-100 transition-colors duration-500 min-h-screen relative overflow-x-hidden selection:bg-github-accent/30 selection:text-github-accent">
+    <!-- Premium Background Effects -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <!-- Grid Overlay -->
+      <div class="absolute inset-0 bg-grid-pattern opacity-60 z-10"></div>
+      
+      <!-- Animated Blobs -->
+      <div class="absolute top-0 -left-4 w-96 h-96 bg-purple-300 dark:bg-purple-900 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[128px] opacity-40 dark:opacity-20 animate-blob"></div>
+      <div class="absolute top-0 -right-4 w-96 h-96 bg-blue-300 dark:bg-blue-900 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[128px] opacity-40 dark:opacity-20 animate-blob" style="animation-delay: 2s"></div>
+      <div class="absolute -bottom-32 left-20 w-96 h-96 bg-pink-300 dark:bg-indigo-900 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[128px] opacity-40 dark:opacity-20 animate-blob" style="animation-delay: 4s"></div>
+    </div>
+    
+    <div id="root" class="relative z-10"></div>
   </body>
 </html>

@@ -1,98 +1,90 @@
 import React from 'react';
 import { Badge, BadgeStatus } from '../types';
-import { ChevronDown, ChevronUp, BookOpen, Lock, CheckCircle } from 'lucide-react';
+import { CheckCircle2, Star, Plus, Gem, Info } from 'lucide-react';
 
 interface BadgeCardProps {
   badge: Badge;
+  isOwned: boolean;
+  onToggleOwned: (e: React.MouseEvent) => void;
+  onClick: () => void;
 }
 
-export const BadgeCard: React.FC<BadgeCardProps> = ({ badge }) => {
-  const [expanded, setExpanded] = React.useState(false);
+const getRarityColor = (rarity: string) => {
+  switch (rarity) {
+    case 'Common': return 'bg-slate-100 text-slate-600 dark:bg-slate-800/50 dark:text-slate-400 border-slate-200 dark:border-slate-700';
+    case 'Uncommon': return 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800';
+    case 'Rare': return 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 border-blue-200 dark:border-blue-800';
+    case 'Legendary': return 'bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400 border-purple-200 dark:border-purple-800';
+    case 'Mythic': return 'bg-amber-50 text-amber-600 dark:bg-amber-900/20 dark:text-amber-400 border-amber-200 dark:border-amber-800';
+    default: return 'bg-gray-100 text-gray-600 border-gray-200';
+  }
+};
 
+export const BadgeCard: React.FC<BadgeCardProps> = ({ badge, isOwned, onToggleOwned, onClick }) => {
   const isRetired = badge.status === BadgeStatus.RETIRED;
-  const isHighlight = badge.status === BadgeStatus.HIGHLIGHT;
 
   return (
-    <div className={`bg-white dark:bg-github-dark border border-gray-200 dark:border-github-border rounded-md shadow-sm overflow-hidden transition-all hover:shadow-md ${isRetired ? 'opacity-75' : ''}`}>
-      <div 
-        className="p-4 flex items-start gap-4 cursor-pointer" 
-        onClick={() => setExpanded(!expanded)}
-      >
-        <div className="text-4xl select-none flex-shrink-0 w-16 h-16 flex items-center justify-center bg-gray-50 dark:bg-github-darker rounded-full border border-gray-100 dark:border-github-border">
-          {badge.emoji}
-        </div>
-        
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-              {badge.name}
-              {isRetired && <span className="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-900">Retired</span>}
-              {isHighlight && <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-900">Highlight</span>}
-            </h3>
-            {expanded ? <ChevronUp className="w-5 h-5 text-gray-400" /> : <ChevronDown className="w-5 h-5 text-gray-400" />}
+    <div 
+      onClick={onClick}
+      className={`group relative glass-panel border border-white/40 dark:border-white/5 rounded-2xl p-5 flex flex-col gap-4 cursor-pointer transition-all duration-300 ease-out hover:scale-[1.03] hover:shadow-2xl hover:shadow-blue-500/10 dark:hover:shadow-blue-900/20 ${isRetired ? 'opacity-60 grayscale-[0.8] hover:grayscale-0 hover:opacity-100' : ''}`}
+    >
+      {/* Background Gradient on Hover */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/60 to-transparent dark:from-white/10 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+
+      {/* Top Row: Icon + Actions */}
+      <div className="flex items-start justify-between relative z-10">
+        <div className="relative group/icon">
+          <div className="text-4xl w-14 h-14 flex items-center justify-center bg-white/50 dark:bg-gray-800/50 rounded-2xl border border-white/30 dark:border-white/10 shadow-sm transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[5deg]">
+            {badge.emoji}
           </div>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+          {isOwned && (
+            <div className="absolute -bottom-2 -right-2 bg-white dark:bg-github-darker rounded-full p-0.5 shadow-md border border-gray-100 dark:border-gray-800 animate-in zoom-in duration-300">
+              <CheckCircle2 className="w-5 h-5 text-github-success fill-green-100 dark:fill-green-900/30" />
+            </div>
+          )}
+        </div>
+
+        <button
+          onClick={(e) => { e.stopPropagation(); onToggleOwned(e); }}
+          className={`w-8 h-8 flex items-center justify-center rounded-full transition-all duration-300 backdrop-blur-sm border ${
+            isOwned 
+              ? 'bg-green-100/50 text-green-600 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800 hover:bg-green-200 dark:hover:bg-green-900/50' 
+              : 'bg-gray-100/50 text-gray-400 border-gray-200 dark:bg-gray-800/50 dark:text-gray-500 dark:border-gray-700 hover:bg-blue-100 hover:text-blue-500 hover:border-blue-200 dark:hover:bg-blue-900/30 dark:hover:text-blue-400 dark:hover:border-blue-800'
+          }`}
+          title={isOwned ? "Remove from collection" : "Mark as owned"}
+        >
+          {isOwned ? <CheckCircle2 className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+        </button>
+      </div>
+      
+      {/* Content */}
+      <div className="flex-1 relative z-10 flex flex-col gap-2">
+        <div>
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white tracking-tight group-hover:text-github-accent transition-colors duration-300">
+            {badge.name}
+          </h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed">
             {badge.description}
           </p>
-          
-          <div className="mt-3 flex items-center gap-4 text-xs text-gray-500 dark:text-gray-500">
-             {!isRetired && (
-               <div className="flex items-center gap-1">
-                 <CheckCircle className="w-3 h-3 text-github-success" />
-                 <span>Earnable</span>
-               </div>
-             )}
-             {badge.tiers && (
-               <div className="flex items-center gap-1">
-                 <div className="flex -space-x-1">
-                    <div className="w-2 h-2 rounded-full bg-amber-700"></div>
-                    <div className="w-2 h-2 rounded-full bg-slate-400"></div>
-                    <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
-                 </div>
-                 <span>Has Tiers</span>
-               </div>
-             )}
-          </div>
+        </div>
+        
+        <div className="mt-auto pt-2 flex items-center gap-2 flex-wrap">
+           <span className={`text-[10px] px-2 py-1 rounded-md border font-medium flex items-center gap-1.5 ${getRarityColor(badge.rarity)}`}>
+             <Gem className="w-3 h-3" /> {badge.rarity}
+           </span>
+           <span className="text-[10px] px-2 py-1 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700 font-medium opacity-80">
+             {badge.difficulty}
+           </span>
         </div>
       </div>
 
-      {expanded && (
-        <div className="px-4 pb-4 pt-0 border-t border-gray-100 dark:border-github-border bg-gray-50/50 dark:bg-github-darker/30">
-          <div className="mt-4 space-y-4">
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-500 mb-2">How to Earn</h4>
-              <p className="text-sm text-gray-700 dark:text-gray-300">{badge.howToEarn}</p>
-            </div>
-
-            {badge.tiers && badge.tiers.length > 0 && (
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-500 mb-2">Tiers</h4>
-                <div className="grid gap-2">
-                  {badge.tiers.map((tier) => (
-                    <div key={tier.name} className="flex items-center justify-between text-sm p-2 bg-white dark:bg-github-dark rounded border border-gray-200 dark:border-github-border">
-                      <span className={`font-medium ${tier.color}`}>{tier.name}</span>
-                      <span className="text-gray-600 dark:text-gray-400">{tier.criteria}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {badge.guideSteps && badge.guideSteps.length > 0 && (
-              <div>
-                 <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-500 mb-2 flex items-center gap-2">
-                   <BookOpen className="w-3 h-3" /> Step-by-Step Guide
-                 </h4>
-                 <ol className="list-decimal list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-github-dark p-3 rounded border border-gray-200 dark:border-github-border">
-                   {badge.guideSteps.map((step, idx) => (
-                     <li key={idx} className="leading-relaxed">{step}</li>
-                   ))}
-                 </ol>
-              </div>
-            )}
-          </div>
+      {/* Hover Tooltip for Quick Guide */}
+      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 p-3 rounded-xl bg-gray-900/90 dark:bg-white/90 backdrop-blur-xl text-white dark:text-gray-900 text-xs shadow-xl opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-300 z-50 pointer-events-none transform translate-y-2 group-hover:translate-y-0 border border-white/10 dark:border-gray-200">
+        <div className="font-bold mb-1 pb-1 border-b border-white/10 dark:border-gray-300 flex items-center gap-1">
+          <Info className="w-3 h-3" /> How to Earn
         </div>
-      )}
+        <p className="leading-normal opacity-90">{badge.howToEarn}</p>
+      </div>
     </div>
   );
 };

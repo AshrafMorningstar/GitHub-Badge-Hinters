@@ -67,7 +67,7 @@ export const AIAssistant: React.FC = () => {
               ? 'bg-purple-100 text-purple-700 border-purple-200 dark:bg-purple-900/30 dark:text-purple-300 dark:border-purple-800' 
               : 'bg-gray-100 text-gray-600 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700'
           }`}
-          title={useThinking ? "Using Gemini 3 Pro (Deep Thinking)" : "Using Gemini 2.5 Flash Lite (Fast)"}
+          title={useThinking ? "Using Deep Reasoning Model" : "Using Fast Model"}
         >
           {useThinking ? <BrainCircuit className="w-3 h-3" /> : <Zap className="w-3 h-3" />}
           {useThinking ? 'Deep Think' : 'Fast Mode'}
@@ -133,7 +133,7 @@ export const AIAssistant: React.FC = () => {
           </button>
         </div>
         <p className="text-[10px] text-gray-400 dark:text-gray-600 mt-2 text-center">
-          AI can make mistakes. Check official GitHub docs for critical info.
+          Assistant may make mistakes. Check official docs for critical info.
         </p>
       </div>
     </div>
